@@ -9,12 +9,12 @@
     <meta name="author" content="Águia Oficial">
     <meta property="og:title" content="Águia Oficial - O Melhor Site de Apostas Online do Brasil">
     <meta property="og:description" content="Aposte com segurança e facilidade no Águia Oficial. Resultados do Jogo do Bicho, palpites, dicas e muito mais. Recargas e saques via PIX automáticos.">
-    <meta property="og:image" content="https://app.aguiaoficial.com/assets/logo.png">
+    <meta property="og:image" content="/logo.png">
     <meta property="og:url" content="https://www.aguiaoficial.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Águia Oficial - O Melhor Site de Apostas Online do Brasil">
     <meta name="twitter:description" content="Aposte com segurança e facilidade no Águia Oficial. Resultados do Jogo do Bicho, palpites, dicas e muito mais. Recargas e saques via PIX automáticos.">
-    <meta name="twitter:image" content="https://app.aguiaoficial.com/assets/logo.png">
+    <meta name="twitter:image" content="/logo.png">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
@@ -219,14 +219,20 @@
                 </a>
             </div>
         </div>
-        <div class="menu-item" id="install-section">
-            <div class="menu-item-container" onclick="window.location.href='#';">
-                <img src="cassino.png" alt="Instalar App" id="install-image">
-                <a href="#" id="install-pwa">
-                    <i class="fas fa-download"></i> Instalar o App
-                </a>
-            </div>
-        </div>
+
+
+	    
+<div class="menu-item" id="install-section">
+    <div class="menu-item-container" id="install-trigger">
+        <img src="cassino.png" alt="Instalar App" id="install-image">
+        <a href="#" id="install-pwa">
+            <i class="fas fa-download"></i> Instalar o App
+        </a>
+    </div>
+</div>
+
+
+	    
     </div>
 
     <script>
@@ -258,37 +264,48 @@
         menuIcon.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
-        // Instalar PWA
-        let deferredPrompt;
-        const installButton = document.getElementById('install-pwa');
-        const installSection = document.getElementById('install-section');
-        const installImage = document.getElementById('install-image');
+    let deferredPrompt;
+    const installSection = document.getElementById('install-section');
+    const installTrigger = document.getElementById('install-trigger');
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
+    // Detecta o evento de "beforeinstallprompt" e exibe a seção de instalação
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
             installSection.style.display = 'block';
-        });
+        }
+    });
 
-        installButton.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('Usuário instalou o PWA');
-                        installSection.classList.add('hidden'); // Oculta a seção após instalação
-                    } else {
-                        console.log('Instalação rejeitada');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        });
+    // Função para iniciar a instalação do PWA
+    function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Usuário instalou o PWA');
+                    installSection.classList.add('hidden'); // Oculta a seção após instalação
+                } else {
+                    console.log('Instalação rejeitada');
+                }
+                deferredPrompt = null;
+            });
+        }
+    }
 
-        // Ocultar seção de instalação se o PWA já estiver instalado
-        window.addEventListener('appinstalled', () => {
-            installSection.classList.add('hidden');
-        });
+    // Aciona a instalação ao clicar na imagem ou no link
+    installTrigger.addEventListener('click', installPWA);
+
+    // Oculta a seção de instalação se o PWA já estiver instalado
+    window.addEventListener('appinstalled', () => {
+        installSection.classList.add('hidden');
+    });
+
+    // Oculta a seção se já estiver no modo standalone (PWA instalado)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        installSection.classList.add('hidden');
+    }
+
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
