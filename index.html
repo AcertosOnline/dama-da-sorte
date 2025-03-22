@@ -210,9 +210,9 @@
     </style>
 </head>
 <body>
-	    <header>
+<header>
         <h1>Águia Oficial - O Melhor Site de Apostas Online do Brasil</h1>
-    </header>
+</header>
 
 <div id="banner-container">
     <div id="banner">
@@ -227,60 +227,10 @@
         title="app.aguiaoficial.com">
     </iframe>
 
-    <!-- Ícone de Menu Hamburguer -->
-    <div class="menu-icon" id="menu-icon">
-        <i class="fas fa-bars"></i>
-    </div>
-
     <!-- Ícone do WhatsApp -->
     <a href="https://wa.me/5583999719353" target="_blank" class="whatsapp-icon">
         <i class="fab fa-whatsapp"></i>
     </a>
-
-    <!-- Overlay para Fechar o Menu -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Menu Deslizante -->
-    <div class="menu" id="menu">
-        <div class="social-title">Promotora Dama Da Sorte</div>
-        <div class="menu-item">
-            <a href="https://www.instagram.com/damadasorteoficial?igsh=NGtzZjB1bW5heXBq" target="_blank">
-                <i class="fab fa-instagram social-icon"></i>
-                Instagram
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="https://www.youtube.com/@Damadasorte" target="_blank">
-                <i class="fab fa-youtube social-icon"></i>
-                YouTube
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="https://wa.me/5583999719353" target="_blank">
-                <i class="fab fa-whatsapp social-icon"></i>
-                WhatsApp
-            </a>
-        </div>
-        <div class="menu-item">
-            <div class="menu-item-container" onclick="window.location.href='###';">
-                <img src="grupopalpites.png" alt="Grupo do WhatsApp">
-                <a href="https://chat.whatsapp.com/EipcF04XIoFD3MW9NO7m5W" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Entrar no grupo
-                </a>
-            </div>
-        </div>
-	    
-<div class="menu-item" id="install-section">
-    <div class="menu-item-container" id="install-trigger">
-        <img src="cassino.png" alt="Instalar App" id="install-image">
-        <a href="#" id="install-pwa">
-            <i class="fas fa-download"></i> Instalar o App
-        </a>
-    </div>
-</div>
-
-	    
-    </div>
 
     <script>
         // Abrir em tela cheia automaticamente
@@ -297,75 +247,7 @@
             }
         });
 
-        // Alternar Menu
-        const menuIcon = document.getElementById('menu-icon');
-        const menu = document.getElementById('menu');
-        const overlay = document.getElementById('overlay');
-
-        function toggleMenu() {
-            menu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
-        }
-
-        menuIcon.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
-
-   let deferredPrompt;
-    const installSection = document.getElementById('install-section');
-    const installTrigger = document.getElementById('install-trigger');
-
-    // Detecta o evento de "beforeinstallprompt" e exibe a seção de instalação
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if (!window.matchMedia('(display-mode: standalone)').matches) {
-            installSection.style.display = 'block';
-        }
-    });
-
-    // Função para iniciar a instalação do PWA
-    function installPWA() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('Usuário instalou o PWA');
-                    installSection.classList.add('hidden'); // Oculta a seção após instalação
-                } else {
-                    console.log('Instalação rejeitada');
-                }
-                deferredPrompt = null;
-            });
-        }
-    }
-
-    // Aciona a instalação ao clicar na imagem ou no link
-    installTrigger.addEventListener('click', installPWA);
-
-    // Oculta a seção de instalação se o PWA já estiver instalado
-    window.addEventListener('appinstalled', () => {
-        installSection.classList.add('hidden');
-    });
-
-    // Oculta a seção se já estiver no modo standalone (PWA instalado)
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-        installSection.classList.add('hidden');
-    }
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker-vivijb.js')
-        .then((registration) => {
-          console.log('Service Worker registrado com sucesso:', registration);
-        })
-        .catch((error) => {
-          console.error('Falha ao registrar o Service Worker:', error);
-        });
-    });
-  }
-
-	        document.addEventListener('DOMContentLoaded', () => {
+	document.addEventListener('DOMContentLoaded', () => {
         const bannerContainer = document.getElementById('banner-container');
         const closeBanner = document.getElementById('close-banner');
 
