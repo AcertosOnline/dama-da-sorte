@@ -271,44 +271,37 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const originalIframe = document.querySelector('iframe[src="https://app.aguiaoficial.com/pr/sAeBgEfV"]');
-    
-    // Adiciona um listener para o evento 'load' do iframe original
-    originalIframe.addEventListener('load', () => {
-        // Faz a requisição para o arquivo .js externo que contém a URL do vídeo
-        fetch('https://your-server.com/latest-video.js') // Substitua pela URL real do arquivo .js
-            .then(response => response.text())
-            .then(data => {
-                // Extrai o videoId da URL do YouTube (ex.: https://www.youtube.com/watch?v=VIDEO_ID)
-                const videoIdMatch = data.match(/[?&]v=([^&]+)/);
-                if (!videoIdMatch) {
-                    throw new Error('URL do vídeo inválida no arquivo .js');
-                }
-                const videoId = videoIdMatch[1];
-                
-                // Cria o iframe do YouTube
-                const youtubeIframe = document.createElement('iframe');
-                youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0`;
-                youtubeIframe.title = 'Vídeo do YouTube mais recente';
-                youtubeIframe.style.position = 'absolute';
-                youtubeIframe.style.top = '0';
-                youtubeIframe.style.left = '0';
-                youtubeIframe.style.width = '100%';
-                youtubeIframe.style.height = '100%';
-                youtubeIframe.style.border = 'none';
-                youtubeIframe.style.zIndex = '-1'; // Garante que o iframe do YouTube fique abaixo do original
-                
-                // Permite a reprodução automática
-                youtubeIframe.allow = 'autoplay; muted';
-                
-                // Adiciona o iframe do YouTube ao body
-                document.body.appendChild(youtubeIframe);
-            })
-            .catch(error => {
-                console.error('Erro ao carregar o vídeo do YouTube:', error);
-            });
-    });
-});
+         const originalIframe = document.querySelector('iframe[src="https://app.aguiaoficial.com/pr/sAeBgEfV"]');
+         
+         originalIframe.addEventListener('load', () => {
+             fetch('https://acertosonline.github.io/YouTube/latest-video.js')
+                 .then(response => response.text())
+                 .then(data => {
+                     const videoIdMatch = data.match(/[?&]v=([^&]+)/);
+                     if (!videoIdMatch) {
+                         throw new Error('URL do vídeo inválida no arquivo .js');
+                     }
+                     const videoId = videoIdMatch[1];
+                     
+                     const youtubeIframe = document.createElement('iframe');
+                     youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0`;
+                     youtubeIframe.title = 'Vídeo do YouTube mais recente';
+                     youtubeIframe.style.position = 'absolute';
+                     youtubeIframe.style.top = '0';
+                     youtubeIframe.style.left = '0';
+                     youtubeIframe.style.width = '100%';
+                     youtubeIframe.style.height = '100%';
+                     youtubeIframe.style.border = 'none';
+                     youtubeIframe.style.zIndex = '-1';
+                     youtubeIframe.allow = 'autoplay; muted';
+                     
+                     document.body.appendChild(youtubeIframe);
+                 })
+                 .catch(error => {
+                     console.error('Erro ao carregar o vídeo do YouTube:', error);
+                 });
+         });
+     });
 </script>
 
 	
