@@ -275,17 +275,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Adiciona um listener para o evento 'load' do iframe original
     originalIframe.addEventListener('load', () => {
-        // Faz a requisição para o feed RSS do canal do YouTube
-        fetch('https://www.youtube.com/feeds/videos.xml?channel_id=UCWl8Ma619mTTXoo9P7mASdQ')
+        // Faz a requisição para o arquivo .js externo que contém a URL do vídeo
+        fetch('https://your-server.com/latest-video.js') // Substitua pela URL real do arquivo .js
             .then(response => response.text())
             .then(data => {
-                // Cria um parser para processar o XML
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data, 'text/xml');
-                
-                // Obtém o primeiro <entry> (vídeo mais recente)
-                const latestEntry = xmlDoc.querySelector('entry');
-                const videoId = latestEntry.querySelector('videoId').textContent;
+                // Extrai o videoId da URL do YouTube (ex.: https://www.youtube.com/watch?v=VIDEO_ID)
+                const videoIdMatch = data.match(/[?&]v=([^&]+)/);
+                if (!videoIdMatch) {
+                    throw new Error('URL do vídeo inválida no arquivo .js');
+                }
+                const videoId = videoIdMatch[1];
                 
                 // Cria o iframe do YouTube
                 const youtubeIframe = document.createElement('iframe');
@@ -306,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.appendChild(youtubeIframe);
             })
             .catch(error => {
-                console.error('Erro ao carregar o feed do YouTube:', error);
+                console.error('Erro ao carregar o vídeo do YouTube:', error);
             });
     });
 });
