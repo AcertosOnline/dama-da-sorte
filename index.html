@@ -78,37 +78,9 @@
             font-size: 24px;
             color: #333;
         }
-        /* Ícone do WhatsApp no Canto Inferior Esquerdo */
-        .whatsapp-icon {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            background-color: #25D366;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            text-decoration: none; /* Remove sublinhado */
-            transition: transform 0.3s ease;
-        }
-        .whatsapp-icon:hover {
-            transform: scale(1.05);
-        }
-        .whatsapp-icon.hidden {
-            display: none !important;
-        }
-        .whatsapp-icon i {
-            font-size: 24px;
-            color: #fff;
-        }
 
-        /* Banner Recuável do WhatsApp */
-        .wa-banner {
+        /* Banner Recuável do WhatsApp e Miniatura */
+        .wa-container {
             position: fixed;
             bottom: 20px;
             left: 20px;
@@ -169,6 +141,31 @@
         }
         .wa-btn:hover {
             background-color: #1ebe5d;
+        }
+
+        /* Miniatura do Banner (Ícone de Grupo) */
+        .wa-mini {
+            background-color: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 2px solid #25D366;
+        }
+        .wa-mini:hover {
+            transform: scale(1.05);
+        }
+        .wa-mini.hidden {
+            display: none !important;
+        }
+        .wa-mini i {
+            font-size: 22px;
+            color: #25D366;
         }
 
         /* Menu Deslizante */
@@ -298,22 +295,23 @@
         title="app.aguiaoficial.com">
     </iframe>
 
-    <!-- Banner Recuável do WhatsApp -->
-    <div id="wa-banner" class="wa-banner">
+    <!-- Container do Banner Recuável e Miniatura -->
+    <div class="wa-container">
+        <!-- Banner Aberto -->
         <div class="wa-card" id="wa-card">
             <div class="wa-header">
                 <i class="fab fa-whatsapp"></i>
                 <button id="wa-minimize" class="wa-minimize" aria-label="Minimizar">&times;</button>
             </div>
             <p class="wa-title">Grupo de palpites no WhatsApp</p>
-            <a href="https://wa.me/5583999719353" target="_blank" class="wa-btn">Entrar</a>
+            <a href="https://chat.whatsapp.com/HakMJ74iC0zJXmEyQTaL9I?mode=gi_t" target="_blank" class="wa-btn">Entrar</a>
+        </div>
+        
+        <!-- Miniatura (Exibida quando o banner é fechado) -->
+        <div id="wa-mini" class="wa-mini hidden" title="Abrir opções do WhatsApp">
+            <i class="fas fa-users"></i>
         </div>
     </div>
-
-    <!-- Ícone do WhatsApp (Exibido quando o banner é minimizado) -->
-    <a href="https://wa.me/5583999719353" target="_blank" id="wa-icon" class="whatsapp-icon hidden">
-        <i class="fab fa-whatsapp"></i>
-    </a>
 
     <script>
         // Abrir em tela cheia automaticamente
@@ -351,15 +349,22 @@
                 });
             }
 
-            // Lógica do Banner Recuável do WhatsApp
+            // Lógica do Banner Recuável do WhatsApp e Miniatura
             const waCard = document.getElementById('wa-card');
             const waMinimize = document.getElementById('wa-minimize');
-            const waIcon = document.getElementById('wa-icon');
+            const waMini = document.getElementById('wa-mini');
 
-            if (waMinimize && waCard && waIcon) {
+            if (waMinimize && waCard && waMini) {
+                // Ao clicar no X, esconde o card grande e mostra a miniatura
                 waMinimize.addEventListener('click', () => {
-                    waCard.classList.add('hidden'); // Oculta o banner
-                    waIcon.classList.remove('hidden'); // Exibe o ícone circular
+                    waCard.classList.add('hidden');
+                    waMini.classList.remove('hidden');
+                });
+                
+                // Ao clicar na miniatura, esconde a miniatura e restaura o card
+                waMini.addEventListener('click', () => {
+                    waMini.classList.add('hidden');
+                    waCard.classList.remove('hidden');
                 });
             }
         });
