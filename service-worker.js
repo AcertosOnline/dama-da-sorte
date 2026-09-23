@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aguia-oficial-v1';
+const CACHE_NAME = 'aguia-oficial-v2';
 const urlsToCache = [
   '/',
   '/index.html',
